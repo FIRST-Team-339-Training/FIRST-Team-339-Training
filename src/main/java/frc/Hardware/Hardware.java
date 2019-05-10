@@ -70,7 +70,7 @@ public enum RobotYear
     KILROY_2018, KILROY_2019, TEST_BOARD
     }
 
-public static final RobotYear whichRobot = RobotYear.KILROY_2019;
+public static final RobotYear whichRobot = RobotYear.TEST_BOARD;
 
 // -------------------------------------
 // Private Constants
@@ -98,6 +98,7 @@ public static final RobotYear whichRobot = RobotYear.KILROY_2019;
 
 // ------------------------------------
 // Victor Classes
+public static SpeedController motorController;
 // ------------------------------------
 
 // ------------------------------------
@@ -235,6 +236,7 @@ public static final RobotYear whichRobot = RobotYear.KILROY_2019;
 
 // ------------------------------------
 // Joystick classes
+public static Joystick rightOperator;
 // ------------------------------------
 
 // ------------------------------------
@@ -277,6 +279,7 @@ public static final RobotYear whichRobot = RobotYear.KILROY_2019;
 
 // ------------------------------------
 // Drive system
+
 // ------------------------------------
 
 // -------------------
@@ -310,6 +313,7 @@ public static void initialize ()
             break;
 
         case TEST_BOARD:
+            testBoardInitialization();
             break;
         } // end switch
           // ------------------------
@@ -697,5 +701,11 @@ public static void robotInitialize2019 ()
 
 } // end robotInitialize2019()
 
+public static void testBoardInitialization ()
+{
+    rightOperator = new Joystick(3);
+
+    motorController = new VictorSP(9);
+}
 
 } // end class

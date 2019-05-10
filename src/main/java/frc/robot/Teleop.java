@@ -57,9 +57,7 @@ public class Teleop
  */
 public static void init ()
 {
-
-
-
+    setDeadband(.2);
 } // end Init
 
 
@@ -75,15 +73,37 @@ public static void init ()
 public static void periodic ()
 {
     // TrainingB branch test
-
+    driveMotor(Hardware.rightOperator.getY());
 
 } // end Periodic()
 
+public static void driveMotor (double yAxis)
+{
+    double goodYAxis = yAxis * -1;
+    double useableRange = 1 - deadband;
+    double driveValue;
+
+    if (goodYAxis > deadband)
+        driveValue = (goodYAxis - deadband) / useableRange;
+    else
+        if (goodYAxis < -deadband)
+            driveValue = (goodYAxis + deadband) / useableRange;
+        else
+            driveValue = 0.0;
+
+    System.out.println(driveValue);
+    Hardware.motorController.set(driveValue);
+}
 
 // Individual testing methods for each programmer. Each programmer should //put
 // their testing code inside their own method.
 // Author: Guido Visioni
 
+public static void setDeadband (double percentDeadband)
+{
+    deadband = percentDeadband;
+}
 
+public static double deadband;
 
 } // end class
