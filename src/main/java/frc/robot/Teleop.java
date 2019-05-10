@@ -75,23 +75,11 @@ public static void periodic ()
 {
     // Assignment 1: Move motor based on joystick, with deadband and scaling
 
-    double deadband = 0.2;
 
-    if (Math.abs(Hardware.rightOperator.getY()) > deadband)
-        {
-        double scaledValue = (Math
-                .abs(Hardware.rightOperator.getY()) - deadband) * 1.25;
+    // assignment1(0);
 
-        if (Hardware.rightOperator.getY() < 0)
-            scaledValue *= -1;
+    // Hardware.testboardMotor.set(Hardware.rightOperator.getY());
 
-        Hardware.testboardMotor.set(scaledValue);
-        }
-    else
-        Hardware.testboardMotor.set(0.0);
-
-    System.out.println("Joystick: " + Hardware.rightOperator.getY());
-    System.out.println("Motor: " + Hardware.testboardMotor.get());
 
     // Assignment 2: Write a class that handles a motor, moves it and
     // scales it based on final fields in that class, moves it for time
@@ -109,6 +97,25 @@ public static void periodic ()
 
 
 } // end Periodic()
+
+
+public static double assignment1 (double joyvalue)
+{
+    double deadband = 0.2;
+
+    if (Math.abs(joyvalue) > deadband)
+        {
+        double scaledValue = (Math
+                .abs(joyvalue) - deadband) * 1.25;
+
+        if (joyvalue < 0)
+            scaledValue *= -1;
+
+        return scaledValue;
+        }
+    else
+        return 0;
+}
 
 
 // Individual testing methods for each programmer. Each programmer should //put
