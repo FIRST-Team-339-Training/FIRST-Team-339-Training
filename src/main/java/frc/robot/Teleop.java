@@ -74,8 +74,9 @@ public static void init ()
 
 public static void periodic ()
 {
+    // Testing TrainingA branch
 
-// Testing TrainingA branch
+    System.out.println("Thing" + Hardware.rightOperator.getY());
 
 } // end Periodic()
 

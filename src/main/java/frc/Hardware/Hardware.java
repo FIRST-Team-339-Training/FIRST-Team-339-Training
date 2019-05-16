@@ -236,7 +236,7 @@ public static final RobotYear whichRobot = RobotYear.KILROY_2019;
 // ------------------------------------
 // Joystick classes
 // ------------------------------------
-
+public static Joystick rightOperator = null;
 // ------------------------------------
 // Buttons classes and Quick Switches
 // ------------------------------------
@@ -431,6 +431,7 @@ public static void commonInitialization ()
 
     // Joystick classes
 
+    rightOperator = new Joystick(3);
 
     // Buttons classes
     // ----- Left Operator -----
