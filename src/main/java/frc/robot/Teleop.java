@@ -74,7 +74,7 @@ public static void init ()
 
 public static void periodic ()
 {
-
+    System.out.println("DAB2!!");
 
 
 } // end Periodic()
