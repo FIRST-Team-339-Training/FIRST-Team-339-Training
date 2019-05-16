@@ -59,7 +59,6 @@ public static void init ()
 {
 
 
-
 } // end Init
 
 
@@ -74,10 +73,49 @@ public static void init ()
 
 public static void periodic ()
 {
-    System.out.println("DAB2!!");
+    // Assignment 1: Move motor based on joystick, with deadband and scaling
+
+
+    // assignment1(0);
+
+    // Hardware.testboardMotor.set(Hardware.rightOperator.getY());
+
+
+    // Assignment 2: Write a class that handles a motor, moves it and
+    // scales it based on final fields in that class, moves it for time
+    // if button is pressed, but does not move if IR is triggered
+    // an encoder has gone beyond min/ max. Limits max speed is a
+    // switch is flipped
+    // Maybe add a move to set position as well
+    // With overrides
+    // Break this into steps for training
+    // With proper constructors and stuff
+
+    // Will need: motor, joystick, IR (can be replaced with a switch?),
+    // switch, encoder
+
 
 
 } // end Periodic()
+
+
+public static double assignment1 (double joyvalue)
+{
+    double deadband = 0.2;
+
+    if (Math.abs(joyvalue) > deadband)
+        {
+        double scaledValue = (Math
+                .abs(joyvalue) - deadband) * 1.25;
+
+        if (joyvalue < 0)
+            scaledValue *= -1;
+
+        return scaledValue;
+        }
+    else
+        return 0;
+}
 
 
 // Individual testing methods for each programmer. Each programmer should //put
