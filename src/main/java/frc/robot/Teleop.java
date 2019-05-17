@@ -74,6 +74,25 @@ public static void init ()
 
 public static void periodic ()
 {
+    // Write a joystick program, that scales and with a deadband of .2
+
+    // Scale the joystick such that at the deadband
+    // the motor speed is zero and it still reaches its maximum speed
+    if ((Hardware.testJoystick.getY() <= -.2)
+            || (Hardware.testJoystick.getY() >= .2))
+        {
+        joystickScalar = 1.25
+                * (Hardware.testJoystick.getY()) - .25;
+        System.out.println("Joystick is outputting: "
+                + Hardware.testJoystick.getY());
+        Hardware.testMotor.set(joystickScalar);
+        System.out.println("Motor speed is: " + joystickScalar);
+
+        }
+    else
+        {
+        Hardware.testMotor.set(0.0);
+        }
     // TrainingB branch test
     // TrainingC branch test
 
@@ -84,6 +103,6 @@ public static void periodic ()
 // their testing code inside their own method.
 // Author: Guido Visioni
 
-
+private static double joystickScalar;
 
 } // end class
