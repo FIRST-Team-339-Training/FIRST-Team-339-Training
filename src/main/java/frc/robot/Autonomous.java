@@ -59,7 +59,12 @@ import edu.wpi.first.cameraserver.CameraServer;
  */
 public class Autonomous
 {
-
+// when it starts, first wait for 1 second, then motor goes forward at .5 speed
+// for two seconds, then it stops for .5 seconds, go backwards at full speed for
+// five seconds, then stop for .75 seconds, forward again for .25 seconds at .6
+// speed. then
+// stop, wait for 1 second, then end auto. When waiting, print one statement
+// saying "We are waiting" then when moving print once "We are moving"
 /**
  * User Initialization code for autonomous mode should go here. Will run once
  * when the autonomous first starts, and will be followed immediately by
@@ -67,7 +72,7 @@ public class Autonomous
  */
 public static void init ()
 {
-
+    timer.start();
 
 } // end Init
 
@@ -94,9 +99,16 @@ public static enum Level
     LEVEL_ONE, LEVEL_TWO, DISABLE, NULL
     }
 
+public static enum StateAuto
+    {
+    START, WAIT_1, WAIT_2, WAIT_3, WAIT_4, MOVE_1, MOVE_2, MOVE_3, END
+    }
+
 // variable that controls the state of autonomous as a whole (init, delay
 // which path is being used, etc.)
 public static State autoState = State.INIT;
+
+public static StateAuto stateAuto = StateAuto.START;
 
 // variable that controls the starting position/side (Left, Right, or Center) of
 // the robot
@@ -124,14 +136,116 @@ public static boolean canceledAuto = false;
 
 public static void periodic ()
 {
+    System.out.println(timer.get());
+    System.out.println(hasDoneTheThing());
+    autoTest();
 
-
+    if (hasDoneTheThing())
+        SetNextEnum();
 }
 
 // ---------------------------------
 // Methods
 // ---------------------------------
 
+public static boolean hasDoneTheThing ()
+{
+    boolean isThingDone = false;
+
+    for (int extraneousInt = 0; extraneousInt < timeMatrix.length; extraneousInt++)
+        {
+        if (timer.get() >= timeMatrix[extraneousInt][0]
+                && timer.get() < timeMatrix[extraneousInt][1]
+                && realityMatrix[extraneousInt] != true)
+            {
+            isThingDone = true;
+            realityMatrix[extraneousInt] = true;
+            }
+        }
 
 
+    return isThingDone;
+}
+
+public static void SetNextEnum ()
+{
+    System.out.println("we have achieved SetNextEnum");
+    switch (stateAuto)
+        {
+        case START:
+            System.out.println("we are waiting");
+            stateAuto = stateAuto.WAIT_1;
+            break;
+        case WAIT_1:
+            System.out.println("and we're moving!");
+            stateAuto = stateAuto.MOVE_1;
+            break;
+        case MOVE_1:
+            System.out.println("we are waiting");
+            stateAuto = stateAuto.WAIT_2;
+            break;
+        case WAIT_2:
+            System.out.println("and we're moving!");
+            stateAuto = stateAuto.MOVE_2;
+            break;
+        case MOVE_2:
+            System.out.println("we are waiting");
+            stateAuto = stateAuto.WAIT_3;
+            break;
+        case WAIT_3:
+            System.out.println("and we're moving!");
+            stateAuto = stateAuto.MOVE_3;
+            break;
+        case MOVE_3:
+            System.out.println("we are waiting");
+            stateAuto = stateAuto.WAIT_4;
+            break;
+        case WAIT_4:
+            System.out.println("And we've finished");
+            stateAuto = stateAuto.END;
+            break;
+        case END:
+            System.out.println("The road goes ever on");
+            stateAuto = stateAuto.START;
+            break;
+        }
+}
+
+public static void autoTest ()
+{
+    switch (stateAuto)
+        {
+        case START:
+            break;
+        case WAIT_1:
+            break;
+        case MOVE_1:
+            break;
+        case WAIT_2:
+            break;
+        case MOVE_2:
+            break;
+        case WAIT_3:
+            break;
+        case MOVE_3:
+            break;
+        case WAIT_4:
+            break;
+        case END:
+            break;
+        }
+}
+// *************************************************
+// variables
+// *************************************************
+
+public static Timer timer = new Timer();
+
+public static double[][] timeMatrix =
+    {
+            {0.9, 2.9, 3.4, 8.4, 9.2, 9.4, 10.4},
+            {1.1, 3.1, 3.6, 8.6, 9.3, 9.6, 10.6}};
+
+public static boolean[] realityMatrix =
+    {false, false, false, false, false, false, false};
 }

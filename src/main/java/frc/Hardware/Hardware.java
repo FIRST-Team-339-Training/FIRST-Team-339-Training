@@ -72,6 +72,8 @@ public enum RobotYear
 
 public static final RobotYear whichRobot = RobotYear.TEST_BOARD;
 
+// TELL COLE TO EXPLAIN STATIC VS NON-STATIC
+
 // -------------------------------------
 // Private Constants
 // -------------------------------------
