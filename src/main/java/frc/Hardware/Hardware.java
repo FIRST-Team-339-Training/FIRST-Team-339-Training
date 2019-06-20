@@ -38,6 +38,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
@@ -48,6 +49,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
 /**
@@ -293,6 +295,7 @@ public static Joystick testJoystick;
 // ====================================
 // Methods
 // ====================================
+public static AnalogPotentiometer thing = null;
 
 /**
  * This initializes the hardware for the robot depending on which year we
@@ -406,7 +409,7 @@ public static void commonInitialization ()
 
     // Potentiometers
 
-
+    thing = new AnalogPotentiometer(0);
     // Sonar/Ultrasonic
 
 
