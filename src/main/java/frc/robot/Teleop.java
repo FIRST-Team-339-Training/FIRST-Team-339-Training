@@ -78,6 +78,8 @@ public static void periodic ()
 
     Hardware.testBoardMotorDelta.set(rightOpYPosition);
 
+    // if (rightOpYPosition <= .2 &&
+
 
 } // end Periodic()
 
