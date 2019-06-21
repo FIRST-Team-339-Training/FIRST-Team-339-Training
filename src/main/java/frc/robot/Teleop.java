@@ -74,7 +74,9 @@ public static void init ()
 
 public static void periodic ()
 {
+    double rightOpYPosition = Hardware.rightOperator.getY();
 
+    Hardware.testBoardMotorDelta.set(rightOpYPosition);
 
 
 } // end Periodic()

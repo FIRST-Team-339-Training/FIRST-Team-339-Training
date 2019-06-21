@@ -99,7 +99,7 @@ public static final RobotYear whichRobot = RobotYear.KILROY_2019;
 // ------------------------------------
 // Victor Classes
 // ------------------------------------
-
+public static SpeedController testBoardMotorDelta;
 // ------------------------------------
 // Servo classes
 // ------------------------------------
@@ -236,7 +236,7 @@ public static final RobotYear whichRobot = RobotYear.KILROY_2019;
 // ------------------------------------
 // Joystick classes
 // ------------------------------------
-
+public static Joystick rightOperator;
 // ------------------------------------
 // Buttons classes and Quick Switches
 // ------------------------------------
@@ -333,6 +333,7 @@ public static void commonInitialization ()
     // ----- Jaguar classes -----
     // ----- Talon classes -----
     // ----- Victor classes ----
+    testBoardMotorDelta = new VictorSP(9);
     // ----- Servo classes -----
 
     // ====================================
@@ -430,7 +431,7 @@ public static void commonInitialization ()
 
 
     // Joystick classes
-
+    rightOperator = new Joystick(3);
 
     // Buttons classes
     // ----- Left Operator -----
