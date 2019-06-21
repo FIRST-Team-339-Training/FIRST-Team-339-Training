@@ -136,104 +136,43 @@ public static boolean canceledAuto = false;
 
 public static void periodic ()
 {
-    System.out.println(timer.get());
-    System.out.println(hasDoneTheThing());
-    autoTest();
-
-    if (hasDoneTheThing())
-        SetNextEnum();
+    switch (quintessentialTimeEngine)
+        {
+        case 1:
+            autoWait(refinedTimeMatrixValues[quintessentialTimeEngine]);
+            break;
+        case 2:
+            autoDrive(energyMatrix[quintessentialTimeEngine],
+                    refinedTimeMatrixValues[quintessentialTimeEngine]);
+            break;
+        case 3:
+            autoWait(refinedTimeMatrixValues[quintessentialTimeEngine]);
+            break;
+        case 4:
+            autoDrive(energyMatrix[quintessentialTimeEngine],
+                    refinedTimeMatrixValues[quintessentialTimeEngine]);
+            break;
+        case 5:
+            autoWait(refinedTimeMatrixValues[quintessentialTimeEngine]);
+            break;
+        case 6:
+            autoDrive(energyMatrix[quintessentialTimeEngine],
+                    refinedTimeMatrixValues[quintessentialTimeEngine]);
+            break;
+        case 7:
+            autoWait(refinedTimeMatrixValues[quintessentialTimeEngine]);
+            break;
+        }
 }
 
 // ---------------------------------
 // Methods
 // ---------------------------------
 
-public static boolean hasDoneTheThing ()
-{
-    boolean isThingDone = false;
-
-    for (int extraneousInt = 0; extraneousInt < timeMatrix.length; extraneousInt++)
-        {
-        if (timer.get() >= timeMatrix[extraneousInt][0]
-                && timer.get() < timeMatrix[extraneousInt][1]
-                && realityMatrix[extraneousInt] != true)
-            {
-            isThingDone = true;
-            realityMatrix[extraneousInt] = true;
-            }
-        }
-
-
-    return isThingDone;
-}
-
-public static void SetNextEnum ()
-{
-    System.out.println("we have achieved SetNextEnum");
-    switch (stateAuto)
-        {
-        case START:
-            System.out.println("we are waiting");
-            stateAuto = stateAuto.WAIT_1;
-            break;
-        case WAIT_1:
-            System.out.println("and we're moving!");
-            stateAuto = stateAuto.MOVE_1;
-            break;
-        case MOVE_1:
-            System.out.println("we are waiting");
-            stateAuto = stateAuto.WAIT_2;
-            break;
-        case WAIT_2:
-            System.out.println("and we're moving!");
-            stateAuto = stateAuto.MOVE_2;
-            break;
-        case MOVE_2:
-            System.out.println("we are waiting");
-            stateAuto = stateAuto.WAIT_3;
-            break;
-        case WAIT_3:
-            System.out.println("and we're moving!");
-            stateAuto = stateAuto.MOVE_3;
-            break;
-        case MOVE_3:
-            System.out.println("we are waiting");
-            stateAuto = stateAuto.WAIT_4;
-            break;
-        case WAIT_4:
-            System.out.println("And we've finished");
-            stateAuto = stateAuto.END;
-            break;
-        case END:
-            System.out.println("The road goes ever on");
-            stateAuto = stateAuto.START;
-            break;
-        }
-}
 
 public static void autoTest ()
 {
-    switch (stateAuto)
-        {
-        case START:
-            break;
-        case WAIT_1:
-            break;
-        case MOVE_1:
-            break;
-        case WAIT_2:
-            break;
-        case MOVE_2:
-            break;
-        case WAIT_3:
-            break;
-        case MOVE_3:
-            break;
-        case WAIT_4:
-            break;
-        case END:
-            break;
-        }
+
 }
 // *************************************************
 // variables
@@ -241,11 +180,98 @@ public static void autoTest ()
 
 public static Timer timer = new Timer();
 
-public static double[][] timeMatrix =
+public static void autoDrive (double speed, double time)
+{
+    drivingTime = time;
+    isDriving = true;
+    Hardware.motorController.set(speed);
+
+    timer.start();
+}
+
+public static void autoWait (double time)
+{
+    waitingTime = time;
+    isWaiting = true;
+
+    timer.start();
+}
+
+public static void checkTimers ()
+{
+    if (isDriving == true)
+        if (timer.get() >= drivingTime)
+            {
+            brake();
+            isDriving = false;
+            }
+    if (isWaiting == true)
+        if (timer.get() >= waitingTime)
+            {
+            isWaiting = false;
+            }
+}
+
+public static void brake ()
+{
+    Hardware.motorController.set(0.0);
+}
+
+public static boolean isDriving = false;
+
+public static boolean isWaiting = false;
+
+public static boolean shouldBeDriving = false;
+
+public static boolean shouldBeWaiting = false;
+
+public static double drivingTime;
+
+public static double waitingTime;
+
+public static int quintessentialTimeEngine = 0;
+// the driving engine behind the switch statement that implements the time
+// matrix and energy matrix.
+
+public static double[][] timeMatrixOfReasonableDoubt =
     {
             {0.9, 2.9, 3.4, 8.4, 9.2, 9.4, 10.4},
             {1.1, 3.1, 3.6, 8.6, 9.3, 9.6, 10.6}};
+// the .2 difference in range is to make sure each time is hit
 
-public static boolean[] realityMatrix =
-    {false, false, false, false, false, false, false};
+public static double[] pureTimeMatrix =
+    {1.0, 3.0, 3.5, 8.5, 9.25, 9.5, 10.5};
+
+public static double[] refinedTimeMatrixValues =
+    {1.0, 2.0, .5, 5.0, .75, .25, 1.0};
+
+public static double[] energyMatrix =
+    {0.0, 0.5, 0.0, 1.0, 0.0, 0.6, 0.0};
 }
+
+
+/*
+ * ______________________
+ * | \ / |
+ * | \ / |
+ * | \ / |
+ * | \ / |
+ * | \ / |
+ * | \ / |
+ * | \ / |
+ * | \ / |
+ * | | |
+ * | | |
+ * | | |
+ * | | |
+ * | | |
+ * | | |
+ * |__________|__________|
+ * 
+ * A Flux Capacitor to run the Time Matrix
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
