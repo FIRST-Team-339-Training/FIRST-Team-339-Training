@@ -431,6 +431,14 @@ public static void commonInitialization ()
 
     // Joystick classes
 
+    public static Joystick leftDriver = null;
+
+    public static Joystick rightDriver = null;
+
+    public static Joystick leftOperator = null;
+
+    public static Joystick rightOperator = null;
+
 
     // Buttons classes
     // ----- Left Operator -----
@@ -568,6 +576,17 @@ public static void robotInitialize2018 ()
     // DriverStations class
 
     // Joystick classes
+
+    leftDriver = new Joystick(0);
+
+    rightDriver = new Joystick(1);
+
+    leftOperator = new Joystick(2);
+
+    rightOperator = new Joystick(3);
+
+
+
 
     // Buttons classes
     // ----- Left Operator -----
