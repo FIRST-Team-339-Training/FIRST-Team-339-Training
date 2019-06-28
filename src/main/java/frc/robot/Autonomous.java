@@ -59,6 +59,9 @@ import edu.wpi.first.cameraserver.CameraServer;
  */
 public class Autonomous
 {
+
+public static Timer timer = new Timer();
+
 // when it starts, first wait for 1 second, then motor goes forward at .5 speed
 // for two seconds, then it stops for .5 seconds, go backwards at full speed for
 // five seconds, then stop for .75 seconds, forward again for .25 seconds at .6
@@ -136,31 +139,90 @@ public static boolean canceledAuto = false;
 
 public static void periodic ()
 {
-    switch (quintessentialTimeEngine)
+    System.out.println(timer.get());
+
+    switch (quintessentialTimeValue)
         {
+        case 0:
+            System.out.println("Starting Auto!");
         case 1:
-            autoWait(refinedTimeMatrixValues[quintessentialTimeEngine]);
+            if (!isWaiting)
+                autoWait(1);
+            if (timer.get() >= 1)
+                {
+                isWaiting = false;
+                quintessentialTimeValue++;
+                }
             break;
         case 2:
-            autoDrive(energyMatrix[quintessentialTimeEngine],
-                    refinedTimeMatrixValues[quintessentialTimeEngine]);
+            if (!isDriving)
+                autoDrive(0.5, 3.0);
+            else
+                if (timer.get() >= 3)
+                    {
+                    isDriving = false;
+                    quintessentialTimeValue++;
+                    }
             break;
         case 3:
-            autoWait(refinedTimeMatrixValues[quintessentialTimeEngine]);
+            if (!isWaiting)
+                {
+                autoWait(3.5);
+                }
+            else
+                if (timer.get() >= 3.5)
+                    {
+                    isWaiting = false;
+                    quintessentialTimeValue++;
+                    }
             break;
         case 4:
-            autoDrive(energyMatrix[quintessentialTimeEngine],
-                    refinedTimeMatrixValues[quintessentialTimeEngine]);
+            if (!isDriving)
+                {
+                autoDrive(1.0, 8.5);
+                }
+            else
+                if (timer.get() >= 8.5)
+                    {
+                    isDriving = false;
+                    quintessentialTimeValue++;
+                    }
             break;
         case 5:
-            autoWait(refinedTimeMatrixValues[quintessentialTimeEngine]);
+            if (!isWaiting)
+                {
+                autoWait(9.25);
+                }
+            else
+                if (timer.get() >= 9.25)
+                    {
+                    isWaiting = false;
+                    quintessentialTimeValue++;
+                    }
             break;
         case 6:
-            autoDrive(energyMatrix[quintessentialTimeEngine],
-                    refinedTimeMatrixValues[quintessentialTimeEngine]);
+            if (!isDriving)
+                {
+                autoDrive(0.6, 9.5);
+                }
+            else
+                if (timer.get() >= 9.5)
+                    {
+                    isDriving = false;
+                    quintessentialTimeValue++;
+                    }
             break;
         case 7:
-            autoWait(refinedTimeMatrixValues[quintessentialTimeEngine]);
+            if (!isWaiting)
+                {
+                autoWait(10.5);
+                }
+            else
+                if (timer.get() >= 10.5)
+                    {
+                    isWaiting = false;
+                    quintessentialTimeValue++;
+                    }
             break;
         }
 }
@@ -178,39 +240,40 @@ public static void autoTest ()
 // variables
 // *************************************************
 
-public static Timer timer = new Timer();
-
 public static void autoDrive (double speed, double time)
 {
+    System.out.println("We are Driving");
     drivingTime = time;
     isDriving = true;
     Hardware.motorController.set(speed);
-
-    timer.start();
 }
 
 public static void autoWait (double time)
 {
+    System.out.println("We are Waiting");
     waitingTime = time;
     isWaiting = true;
-
-    timer.start();
+    brake();
 }
 
-public static void checkTimers ()
-{
-    if (isDriving == true)
-        if (timer.get() >= drivingTime)
-            {
-            brake();
-            isDriving = false;
-            }
-    if (isWaiting == true)
-        if (timer.get() >= waitingTime)
-            {
-            isWaiting = false;
-            }
-}
+// public static void quintessentialTimeEngine ()
+// {
+// System.out.println("Revving the time engine");
+
+// for (int num = 0; num < pureTimeMatrix.length; num++)
+// {
+// if (timer.get() >= pureTimeMatrix[num])
+// quintessentialTimeValue = num + 1;
+// }
+// }
+
+// public static void AutoStateProcessor ()
+// {
+// if (isDriving)
+// {
+
+// }
+// }
 
 public static void brake ()
 {
@@ -221,57 +284,28 @@ public static boolean isDriving = false;
 
 public static boolean isWaiting = false;
 
-public static boolean shouldBeDriving = false;
-
-public static boolean shouldBeWaiting = false;
+public static boolean isDone = false;
 
 public static double drivingTime;
 
 public static double waitingTime;
 
-public static int quintessentialTimeEngine = 0;
+public static int quintessentialTimeValue = 0;
 // the driving engine behind the switch statement that implements the time
 // matrix and energy matrix.
 
-public static double[][] timeMatrixOfReasonableDoubt =
-    {
-            {0.9, 2.9, 3.4, 8.4, 9.2, 9.4, 10.4},
-            {1.1, 3.1, 3.6, 8.6, 9.3, 9.6, 10.6}};
+// public static double[][] timeMatrixOfReasonableDoubt =
+// {
+// {0.9, 2.9, 3.4, 8.4, 9.2, 9.4, 10.4},
+// {1.1, 3.1, 3.6, 8.6, 9.3, 9.6, 10.6}};
 // the .2 difference in range is to make sure each time is hit
 
-public static double[] pureTimeMatrix =
-    {1.0, 3.0, 3.5, 8.5, 9.25, 9.5, 10.5};
+// public static double[] pureTimeMatrix =
+// {1.0, 3.0, 3.5, 8.5, 9.25, 9.5, 10.5};
 
-public static double[] refinedTimeMatrixValues =
-    {1.0, 2.0, .5, 5.0, .75, .25, 1.0};
+// public static double[] refinedTimeMatrixValues =
+// {1.0, 2.0, .5, 5.0, .75, .25, 1.0};
 
-public static double[] energyMatrix =
-    {0.0, 0.5, 0.0, 1.0, 0.0, 0.6, 0.0};
+// public static double[] energyMatrix =
+// {0.0, 0.5, 0.0, 1.0, 0.0, 0.6, 0.0};
 }
-
-
-/*
- * ______________________
- * | \ / |
- * | \ / |
- * | \ / |
- * | \ / |
- * | \ / |
- * | \ / |
- * | \ / |
- * | \ / |
- * | | |
- * | | |
- * | | |
- * | | |
- * | | |
- * | | |
- * |__________|__________|
- * 
- * A Flux Capacitor to run the Time Matrix
- * 
- * 
- * 
- * 
- * 
- */
