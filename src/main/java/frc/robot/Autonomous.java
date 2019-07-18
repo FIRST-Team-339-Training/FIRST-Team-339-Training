@@ -77,7 +77,7 @@ public static void init ()
  */
 public static enum State
     {
-    INIT, DELAY, CHOOSE_PATH, CROSS_AUTOLINE, DEPOSIT_STRAIGHT_CARGO_HATCH, DEPOSIT_ROCKET_HATCH, DEPOSIT_SIDE_CARGO_BALL, BLIND_ROCKET_HATCH, JANKY_DEPOSIT_STRAIGHT, FINISH
+    INIT, AUTO, FINISH
     }
 
 /**
@@ -121,6 +121,13 @@ public static Level autoLevel = Level.NULL;
  *
  */
 public static boolean canceledAuto = false;
+
+switch=auto
+{
+case = INIT
+case = AUTO
+case = FINISH
+}
 
 public static void periodic ()
 {

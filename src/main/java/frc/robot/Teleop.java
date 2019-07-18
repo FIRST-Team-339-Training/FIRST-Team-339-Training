@@ -75,13 +75,22 @@ public static void periodic ()
 {
     // Assignment 1: Move motor based on joystick, with deadband and scaling
 
+    assignment1();
 
-    // assignment1(0);
+    // Assignment 2: Write an autonomous that:
+    // when it starts, first wait for 1 second, then motor goes forward
+    // .5 speed for two seconds, then it stops for .5 seconds, go backwards
+    // at full speed for five seconds, then stop for .75 seconds, forward
+    // again for .25 seconds at .6 speed. then stop, wait for 1 second,
+    // then end auto. When waiting, print one statement
+    // saying "We are waiting" then when moving print once "We are moving"
 
-    // Hardware.testboardMotor.set(Hardware.rightOperator.getY());
 
 
-    // Assignment 2: Write a class that handles a motor, moves it and
+    //
+
+    // Assignment 3 overview
+    // : Write a class that handles a motor, moves it and
     // scales it based on final fields in that class, moves it for time
     // if button is pressed, but does not move if IR is triggered
     // an encoder has gone beyond min/ max. Limits max speed is a
@@ -94,21 +103,26 @@ public static void periodic ()
     // Will need: motor, joystick, IR (can be replaced with a switch?),
     // switch, encoder
 
+    // This assignment should be broken into multiple parts, seen below
 
+    // Assignment 4:
+    // Do the Java Codeacademy
 
 } // end Periodic()
 
 
-public static double assignment1 (double joyvalue)
+public static double assignment1 ()
 {
+    double joyValue = Hardware.rightOperator.getY();
+
     double deadband = 0.2;
 
-    if (Math.abs(joyvalue) > deadband)
+    if (Math.abs(joyValue) > deadband)
         {
         double scaledValue = (Math
-                .abs(joyvalue) - deadband) * 1.25;
+                .abs(joyValue) - deadband) * 1.25;
 
-        if (joyvalue < 0)
+        if (joyValue < 0)
             scaledValue *= -1;
 
         return scaledValue;
