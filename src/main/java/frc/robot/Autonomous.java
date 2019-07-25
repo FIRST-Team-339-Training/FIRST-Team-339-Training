@@ -39,6 +39,7 @@ import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.Utils.drive.Drive;
 import frc.Utils.drive.Drive.BrakeType;
+import jdk.vm.ci.common.InitTimer;
 import edu.wpi.first.cameraserver.CameraServer;
 
 
@@ -77,36 +78,12 @@ public static void init ()
  */
 public static enum State
     {
-    INIT, DELAY, CHOOSE_PATH, CROSS_AUTOLINE, DEPOSIT_STRAIGHT_CARGO_HATCH, DEPOSIT_ROCKET_HATCH, DEPOSIT_SIDE_CARGO_BALL, BLIND_ROCKET_HATCH, JANKY_DEPOSIT_STRAIGHT, FINISH
-    }
-
-/**
- * Starting position and which side of the field the robot is going to
- */
-
-public static enum Position
-    {
-    LEFT, RIGHT, CENTER, NULL
-    }
-
-public static enum Level
-    {
-    LEVEL_ONE, LEVEL_TWO, DISABLE, NULL
+    INIT, AUTO, FINISH
     }
 
 // variable that controls the state of autonomous as a whole (init, delay
 // which path is being used, etc.)
 public static State autoState = State.INIT;
-
-// variable that controls the starting position/side (Left, Right, or Center) of
-// the robot
-
-public static Position autoPosition = Position.NULL;
-
-// variable that controls the level the robot is starting on (Level 1 or level 2
-// or disabled)
-
-public static Level autoLevel = Level.NULL;
 
 /**
  * User Periodic code for autonomous mode should go here. Will be called
@@ -120,10 +97,12 @@ public static Level autoLevel = Level.NULL;
  *          Meghan Brown; 10 February 2019
  *
  */
-public static boolean canceledAuto = false;
-
 public static void periodic ()
 {
+    if (autoState == State.INIT)
+        {
+        System.out.println("")
+    }
 
 
 }
