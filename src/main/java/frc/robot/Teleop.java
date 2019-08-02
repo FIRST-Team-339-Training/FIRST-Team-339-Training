@@ -83,11 +83,12 @@ public static void periodic ()
     // at full speed for five seconds, then stop for .75 seconds, forward
     // again for .25 seconds at .6 speed. then stop, wait for 1 second,
     // then end auto. When waiting, print one statement
-    // saying "We are waiting" then when moving print once "We are moving"
+    // saying "We are waiting" (or some other message) then when
+    // moving print once "We are moving" (or some other message)
 
 
+    // The code for a working version of assignment 2 is in autonomous
 
-    //
 
     // Assignment 3 overview
     // : Write a class that handles a motor, moves it and

@@ -161,7 +161,8 @@ private static double ASSIGN_2_DRIVE_3_SPEED = 0.6;
 // at full speed for five seconds, then stop for .75 seconds, forward
 // again for .25 seconds at .6 speed. then stop, wait for 1 second,
 // then end auto. When waiting, print one statement
-// saying "We are waiting" then when moving print once "We are moving"
+// saying "We are waiting" (or some other message) then when
+// moving print once "We are moving" (or some other message)
 private static void assignment2 ()
 {
     switch (assignment2State)
