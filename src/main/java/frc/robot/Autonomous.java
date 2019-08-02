@@ -40,6 +40,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.Utils.drive.Drive;
 import frc.Utils.drive.Drive.BrakeType;
 import jdk.vm.ci.common.InitTimer;
+import sun.font.TrueTypeFont;
 import edu.wpi.first.cameraserver.CameraServer;
 
 
@@ -85,25 +86,42 @@ public static enum State
 // which path is being used, etc.)
 public static State autoState = State.INIT;
 
+public static Timer timer = new Timer();
 /**
  * User Periodic code for autonomous mode should go here. Will be called
  * periodically at a regular rate while the robot is in autonomous mode.
  *
- * @author Nathanial Lydick
+ * @author Nathanial Lydick((
  * @written Jan 13, 2015
  *
  *          FYI: drive.stop cuts power to the motors, causing the robot to
  *          coast. drive.brake results in a more complete stop.
  *          Meghan Brown; 10 February 2019
  *
- */
+*/
 public static void periodic ()
 {
-    if (autoState == State.INIT)
-        {
-        System.out.println("")
-    }
+    switch(autoState)
+    {
+        case INIT:
+            System.out.println("We are waiting...");
+            timer.start();
+            if (timer.get() == 1)
 
+            autoState = State.AUTO;
+        break;
+
+        case AUTO:
+            break;
+
+        case FINISH:
+            break;
+
+        default:
+            break;
+
+    }
+    }
 
 }
 

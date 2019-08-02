@@ -236,21 +236,20 @@ public static SpeedController victorController = null;
 // ------------------------------------
 // Joystick classes
 // ------------------------------------
-<<<<<<< HEAD
-=======
+
 public static Joystick leftDriver = null;
 
 public static Joystick rightDriver = null;
 
 public static Joystick leftOperator = null;
 
->>>>>>> 4b2e90f04406bd874acdb53fef19a769795d0fc0
 public static Joystick rightOperator = null;
+
 // ------------------------------------
 // Buttons classes and Quick Switches
 // ------------------------------------
 // ----- Left Operator -----
-
+public static JoystickButton autoButton = null;
 // ----- Right Operator -----
 
 // ------------------------------------
@@ -453,7 +452,7 @@ public static void commonInitialization ()
 
     // Buttons classes
     // ----- Left Operator -----
-
+    autoButton = new JoystickButton(leftOperator, 3);
 
     // ----------Left Driver---------------
 
