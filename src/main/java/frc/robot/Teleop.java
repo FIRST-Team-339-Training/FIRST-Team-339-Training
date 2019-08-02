@@ -105,13 +105,16 @@ public static void periodic ()
 
     // This assignment should be broken into multiple parts, seen below
 
+
+
+
     // Assignment 4:
     // Do the Java Codeacademy
 
 } // end Periodic()
 
 
-public static double assignment1 ()
+public static void assignment1 ()
 {
     double joyValue = Hardware.rightOperator.getY();
 
@@ -125,10 +128,10 @@ public static double assignment1 ()
         if (joyValue < 0)
             scaledValue *= -1;
 
-        return scaledValue;
+        Hardware.testboardMotor.set(scaledValue);
         }
     else
-        return 0;
+        Hardware.testboardMotor.set(0.0);
 }
 
 

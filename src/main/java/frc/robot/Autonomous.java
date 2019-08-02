@@ -122,17 +122,170 @@ public static Level autoLevel = Level.NULL;
  */
 public static boolean canceledAuto = false;
 
-switch=auto
+
+
+private static enum Assignment2State
+    {
+    INIT, WAIT_1, DRIVE_1, WAIT_2, DRIVE_2, WAIT_3, DRIVE_3, WAIT_4, FINISHED
+    };
+
+
+private static Assignment2State assignment2State = Assignment2State.INIT;
+
+private static Timer assignment2Timer = new Timer();
+
+// all times are in seconds since that is what the timer is in
+private static double ASSIGN_2_WAIT_1_TIME = 1;
+
+private static double ASSIGN_2_DRIVE_1_TIME = .5;
+
+private static double ASSIGN_2_WAIT_2_TIME = .5;
+
+private static double ASSIGN_2_DRIVE_2_TIME = 5;
+
+private static double ASSIGN_2_WAIT_3_TIME = .75;
+
+private static double ASSIGN_2_DRIVE_3_TIME = .25;
+
+private static double ASSIGN_2_WAIT_4_TIME = 1;
+
+private static double ASSIGN_2_DRIVE_1_SPEED = 1.0;
+
+private static double ASSIGN_2_DRIVE_2_SPEED = -1.0;
+
+private static double ASSIGN_2_DRIVE_3_SPEED = 0.6;
+
+// Assignment 2: Write an autonomous that:
+// when it starts, first wait for 1 second, then motor goes forward
+// .5 speed for two seconds, then it stops for .5 seconds, go backwards
+// at full speed for five seconds, then stop for .75 seconds, forward
+// again for .25 seconds at .6 speed. then stop, wait for 1 second,
+// then end auto. When waiting, print one statement
+// saying "We are waiting" then when moving print once "We are moving"
+private static void assignment2 ()
 {
-case = INIT
-case = AUTO
-case = FINISH
+    switch (assignment2State)
+        {
+        case INIT:
+            assignment2State = Assignment2State.WAIT_1;
+            System.out.println("Entering WAIT_1");
+            assignment2Timer.reset();
+            assignment2Timer.start();
+            break;
+
+        case WAIT_1:
+
+            if (assignment2Timer.get() > ASSIGN_2_WAIT_1_TIME)
+                {
+                assignment2State = Assignment2State.DRIVE_1;
+                System.out.println("Entering DRIVE_1");
+                assignment2Timer.reset();
+                assignment2Timer.start();
+                }
+
+            break;
+
+        case DRIVE_1:
+
+            if (assignment2Timer.get() > ASSIGN_2_DRIVE_1_TIME)
+                {
+                Hardware.testboardMotor.set(0.0);
+                assignment2State = Assignment2State.WAIT_2;
+                System.out.println("Entering WAIT_2");
+                assignment2Timer.reset();
+                assignment2Timer.start();
+                }
+            else
+                {
+                Hardware.testboardMotor.set(ASSIGN_2_DRIVE_1_SPEED);
+                }
+
+            break;
+
+        case WAIT_2:
+
+            if (assignment2Timer.get() > ASSIGN_2_WAIT_2_TIME)
+                {
+                assignment2State = Assignment2State.DRIVE_2;
+                System.out.println("Entering DRIVE_2");
+                assignment2Timer.reset();
+                assignment2Timer.start();
+                }
+            break;
+
+        case DRIVE_2:
+            if (assignment2Timer.get() > ASSIGN_2_DRIVE_2_TIME)
+                {
+                Hardware.testboardMotor.set(0.0);
+                assignment2State = Assignment2State.WAIT_3;
+                System.out.println("Entering WAIT_3");
+                assignment2Timer.reset();
+                assignment2Timer.start();
+                }
+            else
+                {
+                Hardware.testboardMotor.set(ASSIGN_2_DRIVE_2_SPEED);
+                }
+
+            break;
+
+        case WAIT_3:
+
+            if (assignment2Timer.get() > ASSIGN_2_WAIT_3_TIME)
+                {
+                assignment2State = Assignment2State.DRIVE_3;
+                System.out.println("Entering DRIVE_3");
+                assignment2Timer.reset();
+                assignment2Timer.start();
+                }
+
+            break;
+
+        case DRIVE_3:
+
+            if (assignment2Timer.get() > ASSIGN_2_DRIVE_3_TIME)
+                {
+                Hardware.testboardMotor.set(0.0);
+                assignment2State = Assignment2State.WAIT_4;
+                System.out.println("Entering WAIT_4");
+                assignment2Timer.reset();
+                assignment2Timer.start();
+                }
+            else
+                {
+                Hardware.testboardMotor.set(ASSIGN_2_DRIVE_3_SPEED);
+                }
+
+            break;
+
+        case WAIT_4:
+
+            if (assignment2Timer.get() > ASSIGN_2_WAIT_4_TIME)
+                {
+                assignment2State = Assignment2State.FINISHED;
+                System.out.println("Entering FINISHED");
+                assignment2Timer.reset();
+                assignment2Timer.start();
+                }
+
+            break;
+
+        case FINISHED:
+            System.out.println("FINISHED");
+            break;
+
+        default:
+            System.out.println(
+                    "Reached default case in Assignment 2 Auto");
+            assignment2State = Assignment2State.FINISHED;
+            break;
+        }
 }
+
 
 public static void periodic ()
 {
-
-
+    assignment2();
 }
 
 // ---------------------------------
